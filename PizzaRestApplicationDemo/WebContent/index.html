@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Place Pizza Order</title>
+  <link rel="stylesheet" type="text/css" href="css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="css/mycss.css" />
+</head>
+
+<body>
+  <form method="POST" name="forms"
+        action="http://localhost:8080/PizzaRestApplicationDemo/Demo/placeorder/">
+    <div class="forms">
+      <div class="cell1">
+        <h3>Pizza Italiano</h3>
+        <hr />
+        <table>
+          <tr>
+            <td>Small</td>
+            <td>$8</td>
+          </tr>
+          <tr>
+            <td>Medium</td>
+            <td>$10</td>
+          </tr>
+          <tr>
+            <td>Large</td>
+            <td>$12</td>
+          </tr>
+          <tr>
+            <td>X-Large</td>
+            <td>$14</td>
+          </tr>
+          <tr>
+            <td >Toppings</td>
+            <td>$1.50 Each</td>
+            </tr>  
+        </table>
+        Your Price<br />
+        <input id ="price" name="price" size="8" readonly="readonly" />
+      </div>
+      <div class="forms2">
+        <fieldset>
+          <legend>Personal Information</legend>
+          <table>   
+            <tr>     
+         <td>Name </td><td><input name="name" /></td></tr><tr>
+         <td>Address </td><td><input type = "text" name="address" /></td></tr> <tr>
+         <td>Apt# </td><td><input type="text" name="apt"/></td></tr> <tr>       
+              <td>Phone No. </td><td><input type="tel" name="phone" /></td></tr>
+         </table> 
+        </fieldset>
+        <fieldset>
+          <legend>Pizza size &amp; Crust</legend>
+          <select id="size" name="size" size="2" onchange = updateTotal()>
+            <option>Select Pizza Size</option>
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+            <option value="xlarge">X-Large</option>
+          </select>
+          <select name="crust" size="2">
+            <option value="Regular Crust">Regular Crust</option>
+            <option value="Thin Crust">Thin Crust</option>
+          </select>
+        </fieldset>
+        <fieldset>
+          <legend>Cheeses</legend>
+          <input type="radio" name="cheese" value="Mozzarella" />Mozzarella
+          <input type="radio" name="cheese" value="Reduced Fat" />Reduced Fat
+          <input type="radio" name="cheese" value="Feta" />Feta
+        </fieldset>
+        <fieldset>
+          <legend>Sauces</legend>
+          <input type="radio" name="sauce" value="Pizza Sauce" />Pizza Sauce
+          <input type="radio" name="sauce" value="BBQ Sauce" />BBQ Sauce
+          <input type="radio" name="sauce" value="Garlic Sauce" />Garlic Sauce
+        </fieldset>
+        <fieldset>
+          <legend>Special Instructions</legend>
+          <textarea name="instructions" rows="3" cols="42"></textarea>
+        </fieldset> 
+        <input type="submit" value="PLACE YOUR ORDER" />
+        <input type="reset" value="START OVER" />
+      </div>
+      <div class="forms2">
+        <fieldset>
+          <legend>Choose Toppings - $1.50 Each</legend>
+          <div class="forms2">
+            <input type="checkbox" id ="1" name="topping" value="Anchovies" onchange= updateTotal() /> Anchovies<br />
+            <input type="checkbox" id ="2" name="topping" value="Bacon" onchange= updateTotal() /> Bacon<br />
+            <input type="checkbox" id ="3" name="topping" value="Ham" onchange= updateTotal() /> Ham<br />
+            <input type="checkbox" id ="4" name="topping" value="Pepperoni" onchange= updateTotal() /> Pepperoni<br />
+            <input type="checkbox" id ="5" name="topping" value="Salami" onchange= updateTotal() /> Salami<br />
+            <input type="checkbox" id ="6" name="topping" value="Sausage" onchange= updateTotal() /> Sausage<br />
+          </div>
+          <div class="forms2">
+            <input type="checkbox" id ="7" name="topping" value="Brocolli" onchange= updateTotal()  /> Broccoli<br />
+            <input type="checkbox" id ="8" name="topping" value="Olives" onchange= updateTotal()  /> Olives<br />
+            <input type="checkbox" id ="9" name="topping" value="Green Peppers" onchange= updateTotal()  /> Green Peppers<br />
+            <input type="checkbox" id ="10" name="topping" value="Mushrooms" onchange= updateTotal()  /> Mushrooms<br />
+            <input type="checkbox" id ="11" name="topping" value="Red Onions" onchange= updateTotal() /> Red Onions<br />
+            <input type="checkbox" id ="12" name="topping" value="Roasted Garlic" onchange= updateTotal() /> Roasted Garlic<br />
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </form>
+
+    <section>
+      <script type="text/javascript">
+          function updateTotal()
+          {
+              var total =0;
+              var no=document.getElementById('size');
+              //var option=parseInt(no.options[no.selectedIndex].value);
+              if(no.options[no.selectedIndex].value =="small")
+            	  total+=8;
+              else if(no.options[no.selectedIndex].value =="medium")
+              total+= 10;
+              else if(no.options[no.selectedIndex].value =="large")
+                  total+= 12;
+              else
+            	  total+=14;
+              var toppings= (document.getElementById('1').checked?1.50:0) +
+              (document.getElementById('2').checked?1.50:0)+
+              (document.getElementById('3').checked?1.50:0)+
+              (document.getElementById('4').checked?1.50:0)+
+              (document.getElementById('5').checked?1.50:0)+
+              (document.getElementById('6').checked?1.50:0)+
+               (document.getElementById('7').checked?1.50:0)+
+               (document.getElementById('8').checked?1.50:0)+
+                (document.getElementById('9').checked?1.50:0)+
+                (document.getElementById('10').checked?1.50:0)+
+                (document.getElementById('11').checked?1.50:0)+
+                (document.getElementById('12').checked?1.50:0);
+              total+=toppings;
+              var strTotal = "$" +total
+              document.getElementById('price').value = strTotal;
+          }
+      </script>
+    </section>
+
+</body>
+
+</html>
